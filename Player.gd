@@ -1,19 +1,26 @@
 extends Area2D
 
+export (float) var max_health = 100.0
 export (int) var speed = 5
-export(String) var weapon_scene_path = "res://Sword.tscn"
+export (String) var weapon_scene_path = "res://Sword.tscn"
+
+signal update_health(new_value)
 
 enum STATE {
 	ATTACK,
-	IDLE
+	IDLE,
+	HIT
 }
 
 var attack_state = IDLE
 var flip_h
+var health = max_health
 var screensize
 var weapon
 
 func _ready():
+	add_to_group(Group.Player)
+	
 	screensize = get_viewport_rect().size
 	
 	# Weapon setup
@@ -21,7 +28,7 @@ func _ready():
 	var weapon_anchor = $WeaponAnchorPoint
 	weapon_anchor.add_child(weapon_instance)
 	weapon = weapon_anchor.get_child(0)
-	weapon.connect("attack_finished", self, "_on_Weapon_attack_finished")
+	weapon.connect("attack_finished", self, "_on_weapon_attack_finished")
 	pass
 	
 func _maybe_flip():
@@ -35,10 +42,12 @@ func _input(ev):
 				attack_state = ATTACK
 				weapon.attack()
 	pass
-	
-func _on_Weapon_attack_finished():
-	attack_state = IDLE
-	self._maybe_flip()
+
+func hit(damage):
+	if ($InvincibleTimer.is_stopped()):
+		health -= damage
+		emit_signal("update_health", health / max_health)
+		$InvincibleTimer.start()
 
 func _process(delta):
 	var velocity = Vector2() # The player's movement vector.
@@ -62,3 +71,7 @@ func _process(delta):
 	position.x = clamp(position.x, 0, screensize.x)
 	position.y = clamp(position.y, 0, screensize.y)
 	pass
+
+func _on_weapon_attack_finished():
+	attack_state = IDLE
+	self._maybe_flip()

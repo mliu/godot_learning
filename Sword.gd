@@ -7,6 +7,7 @@ enum STATES {IDLE, ATTACK}
 onready var animation_player = $AnimationPlayer
 
 func _ready():
+	add_to_group(Group.Weapon)
 	animation_player.play("idle")
 	animation_player.connect('animation_finished', self, '_on_AnimationPlayer_animation_finished')
 	pass
@@ -25,7 +26,7 @@ func _change_state(new_state):
 		ATTACK:
 			return true
 		IDLE:
-			print("playing idle")
+
 			animation_player.play("idle")
 
 func _on_AnimationPlayer_animation_finished(name):

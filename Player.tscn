@@ -36,9 +36,7 @@ audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
-__meta__ = {
-"_edit_group_": true
-}
+max_health = 100
 speed = 150
 weapon_scene_path = "res://Sword.tscn"
 
@@ -57,5 +55,12 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 position = Vector2( 10, 15 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="InvincibleTimer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 2.0
+one_shot = true
+autostart = false
 
 
