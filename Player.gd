@@ -1,22 +1,22 @@
 extends Area2D
 
-export (float) var max_health = 100.0
-export (int) var speed = 5
-export (String) var weapon_scene_path = "res://Sword.tscn"
-
-signal update_health(new_value)
-
 enum STATE {
 	ATTACK,
 	IDLE,
 	HIT
 }
 
+export (float) var max_health = 100.0
+export (int) var speed = 5
+export (String) var weapon_scene_path = "res://Sword.tscn"
+
 var attack_state = IDLE
 var flip_h
 var health = max_health
 var screensize
 var weapon
+
+signal update_health(new_value)
 
 func _ready():
 	add_to_group(Group.Player)
@@ -47,7 +47,7 @@ func hit(damage):
 	if ($InvincibleTimer.is_stopped()):
 		health -= damage
 		emit_signal("update_health", health / max_health)
-		$InvincibleTimer.start()
+	$InvincibleTimer.start()
 
 func _process(delta):
 	var velocity = Vector2() # The player's movement vector.

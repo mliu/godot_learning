@@ -18,10 +18,12 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 [node name="Unit" parent="." index="1" instance=ExtResource( 3 )]
 
 position = Vector2( 691.318, 296.924 )
+damage = 15
 
 [node name="Unit2" parent="." index="2" instance=ExtResource( 3 )]
 
 position = Vector2( 420.498, 307.984 )
+damage = 15
 
 [node name="HealthBarContainer" parent="." index="3" instance=ExtResource( 4 )]
 

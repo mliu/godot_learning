@@ -24,7 +24,7 @@ animations = [ {
 custom_solver_bias = 0.0
 extents = Vector2( 32, 32 )
 
-[node name="Player" type="Area2D" index="0"]
+[node name="Player" type="Area2D"]
 
 position = Vector2( 0.19371, 0 )
 input_pickable = true
@@ -36,7 +36,7 @@ audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
-max_health = 100
+max_health = 100.0
 speed = 150
 weapon_scene_path = "res://Sword.tscn"
 
